@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head"></head>
+<body class="config">
+<div id="app">
+    <div th:replace="fragments/header :: header"></div>
+
+    <!--====== App Content ======-->
+    <div class="app-content">
+
+        <!--====== Section 1 ======-->
+        <div class="u-s-p-y-90">
+            <div class="container">
+                <div clas="row">
+                    <div class="col-12">
+                        <!--====== Product Breadcrumb ======-->
+                        <div th:replace="/fragments/breadcrumb :: breadcrumbs"></div>
+                        <!--====== End - Product Breadcrumb ======-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shop-p">
+                            <div class="shop-p__toolbar u-s-m-b-30">
+                                <div th:if="${filter != null && (!#strings.isEmpty(filter.query) || !#strings.isEmpty(filter.categoryId))}"
+                                     class="shop-p__meta-wrap u-s-m-b-60">
+
+                                    <span class="shop-p__meta-text-1"
+                                          th:text="'FOUND ' + ${products.size()} + ' PRODUCTS'"></span>
+                                    <div class="shop-p__meta-text-2">
+
+                                        <span>Related Searches:</span>
+
+                                        <a class="gl-tag btn--e-brand-shadow" href="#"
+                                           th:if="${!#strings.isEmpty(filter.query)}" th:text="${filter.query}"></a>
+
+                                        <a class="gl-tag btn--e-brand-shadow" href="#"
+                                           th:if="${!#strings.isEmpty(filter.categoryId)}"
+                                           th:text="'Category: ' + ${filter.categoryName}"></a>
+                                    </div>
+                                </div>
+                                <div class="shop-p__tool-style">
+                                    <div class="tool-style__group u-s-m-b-8">
+
+                                        <span class="js-shop-filter-target" data-side="#side-filter">Filters</span>
+
+                                        <span class="js-shop-grid-target is-active">Grid</span>
+
+                                        <span class="js-shop-list-target">List</span></div>
+                                    <form th:action="@{/products}" th:object="${filter}" method="post">
+                                        <div class="tool-style__form-wrap">
+                                            <!--<div class="u-s-m-b-8">
+                                                <select
+                                                    class="select-box select-box&#45;&#45;transparent-b-2">
+                                                    <option>Show: 8</option>
+                                                    <option selected>Show: 12</option>
+                                                    <option>Show: 16</option>
+                                                    <option>Show: 28</option>
+                                                </select>
+                                            </div>-->
+                                            <div class="u-s-m-b-8">
+                                                <select
+                                                        class="select-box select-box--transparent-b-2"
+                                                        th:field="*{categoryId}"
+                                                        onchange="this.form.submit()"
+                                                >
+                                                    <option value="">All Categories</option>
+                                                    <option th:each="category : ${categories}" th:value="${category.id}"
+                                                            th:text="${category.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="shop-p__collection">
+                                <div class="row is-grid-active">
+                                    <div th:each="product : ${products}" class="col-lg-3 col-md-4 col-sm-6">
+                                        <div class="product-m">
+                                            <div class="product-m__thumb">
+
+                                                <a class="aspect aspect--bg-grey aspect--square u-d-block"
+                                                   th:href="'/product-list-detail/' + ${product.id}">
+                                                    <img class="aspect__img"
+                                                         th:src="'/images/product/' + ${product.image}"
+                                                         th:alt="${product.name}">
+                                                </a>
+
+                                                <div class="product-m__quick-look">
+
+                                                    <a class="fas fa-search" data-modal="modal"
+                                                       data-modal-id="#quick-look" data-tooltip="tooltip"
+                                                       data-placement="top" title="Quick Look">
+                                                    </a>
+                                                </div>
+
+                                                <div class="product-m__add-cart">
+                                                    <a class="btn--e-brand" data-modal="modal"
+                                                       data-modal-id="#add-to-cart">Add to Cart</a>
+                                                </div>
+                                            </div>
+                                            <div class="product-m__content">
+                                                <div class="product-m__category">
+                                                    <a th:href="'/product-list-detail/' + ${product.id}"></a>
+                                                </div>
+
+                                                <div class="product-m__name">
+                                                    <a th:href="'/product-list-detail/' + ${product.id}"
+                                                       th:text="${product.name}"></a>
+                                                </div>
+
+                                                <div class="product-m__rating gl-rating-style">
+                                                    <span class="product-m__review"
+                                                          th:text="'Views: (' + ${product.views} + ')'"></span>
+                                                </div>
+
+                                                <div class="product-m__price">
+                                                    <span class="pd-detail__price" th:if="${!product.sale}"
+                                                          th:text="'$' + ${product.price}"></span>
+                                                    <span class="pd-detail__discount" th:if="${product.sale}"
+                                                          th:text="'$' + ${product.salePrice}"></span>
+                                                    <del class="pd-detail__del" th:if="${product.sale}"
+                                                         th:text="${'$' + product.price}"></del>
+                                                </div>
+                                                <div class="product-m__hover">
+                                                    <div class="product-m__preview-description">
+                                                        <span th:text="${product.description}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="u-s-p-y-60">
+
+                                &lt;!&ndash;====== Pagination ======&ndash;&gt;
+                                <ul class="shop-p__pagination">
+                                    <li class="is-active">
+
+                                        <a href="shop-grid-full.html">1</a></li>
+                                    <li>
+
+                                        <a href="shop-grid-full.html">2</a></li>
+                                    <li>
+
+                                        <a href="shop-grid-full.html">3</a></li>
+                                    <li>
+
+                                        <a href="shop-grid-full.html">4</a></li>
+                                    <li>
+
+                                        <a class="fas fa-angle-right" href="shop-grid-full.html"></a></li>
+                                </ul>
+                                &lt;!&ndash;====== End - Pagination ======&ndash;&gt;
+                            </div>-->
+                        </div>
+
+                        <div class="col-12" th:if="${products == null || products.size() == 0}">
+                            <div class="alert alert-warning" role="alert">
+                                There are no products to show!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section 1 ======-->
+    </div>
+    <!--====== End - App Content ======-->
+
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+<div th:replace="fragments/scripts :: scripts"></div>
+</body>
+</html>

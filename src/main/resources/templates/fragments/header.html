@@ -1,0 +1,251 @@
+<!--====== Header Wrapper ======-->
+<div class="header-wrapper" th:fragment="header">
+
+    <!--======   Main Header ======-->
+    <header th:attr="class=${page != null && page == 'home' ? 'header--style-3' : 'header--style-1 header--box-shadow'}" >
+
+        <!--====== Nav 1 ======-->
+        <nav class="primary-nav-wrapper">
+            <div class="container">
+
+                <!--====== Primary Nav ======-->
+                <div class="primary-nav">
+
+                    <!--====== Main Logo ======-->
+
+                    <a class="main-logo" href="/">
+                        <img th:if="${page != null && page.equals('home')}" src="/images/logo/logo-2.png" alt="">
+                        <img th:if="${page == null || !page.equals('home')}" src="/images/logo/logo-1.png" alt="">
+                    </a>
+                    <!--====== End - Main Logo ======-->
+
+
+                    <!--====== Search Form ======-->
+                    <form th:if="${filter == null || #strings.isEmpty(filter.query)}" class="main-form" th:action="@{/products}" th:object="${filter}" method="post">
+
+                        <label for="main-search"></label>
+
+                        <input
+                                th:class="'input-text input-text--border-radius ' + ${page != null && page == 'home' ? 'input-text--style-2' : 'input-text--style-1'}"
+                                type="text"
+                                id="main-search" placeholder="Search" th:field="*{query}">
+
+                        <button class="btn btn--icon fas main-search-button fa-search" type="submit"></button>
+                    </form>
+
+
+                    <!--====== End - Search Form ======-->
+
+
+                    <!--====== Dropdown Main plugin ======-->
+                    <div class="menu-init" id="navigation">
+
+                        <button class="btn btn--icon toggle-button toggle-button--white fas fa-cogs"
+                                type="button"></button>
+
+                        <!--====== Menu ======-->
+                        <div class="ah-lg-mode">
+
+                            <span class="ah-close">✕ Close</span>
+
+                            <!--====== List ======-->
+                            <ul th:class="'ah-list ah-list--design1 ' + ${page != null && page.equals('home') ? 'ah-list--link-color-white' : 'ah-list--link-color-primary' }">
+                                <li class="has-dropdown">
+
+                                    <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
+
+                                        <span class="total-item-round">2</span></a>
+
+                                    <!--====== Dropdown ======-->
+
+                                    <span class="js-menu-toggle"></span>
+                                    <div class="mini-cart">
+
+                                        <!--====== Mini Product Container ======-->
+                                        <div class="mini-product-container gl-scroll u-s-m-b-15">
+
+                                            <!--====== Card for mini cart ======-->
+                                            <div class="card-mini-product">
+                                                <div class="mini-product">
+                                                    <div class="mini-product__image-wrapper">
+
+                                                        <a class="mini-product__link" href="product-detail.html">
+
+                                                            <img class="u-img-fluid"
+                                                                 src="images/women/black-rose-lips-lamour-logo-t-shirt.jpg"
+                                                                 alt=""></a></div>
+                                                    <div class="mini-product__info-wrapper">
+
+                                                                <span class="mini-product__category">
+
+                                                                    <a href="shop-side-version-2.html">Women</a></span>
+
+                                                        <span class="mini-product__name">
+
+                                                                    <a href="product-detail.html">Black Rose Lips Lamour Logo T-shirt</a></span>
+
+                                                        <span class="mini-product__quantity">1 x</span>
+
+                                                        <span class="mini-product__price">$22</span></div>
+                                                </div>
+
+                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
+                                            </div>
+                                            <!--====== End - Card for mini cart ======-->
+
+
+                                            <!--====== Card for mini cart ======-->
+                                            <div class="card-mini-product">
+                                                <div class="mini-product">
+                                                    <div class="mini-product__image-wrapper">
+
+                                                        <a class="mini-product__link" href="product-detail.html">
+
+                                                            <img class="u-img-fluid"
+                                                                 src="static/images/men/black-happy-embroidered-oversized-t-shirt.jpg" alt=""></a>
+                                                    </div>
+                                                    <div class="mini-product__info-wrapper">
+
+                                                                <span class="mini-product__category">
+
+                                                                    <a href="shop-side-version-2.html">Men</a></span>
+
+                                                        <span class="mini-product__name">
+
+                                                                    <a href="product-detail.html">Black Happy Embroidered Oversized Tshirt</a></span>
+
+                                                        <span class="mini-product__quantity">1 x</span>
+
+                                                        <span class="mini-product__price">$20</span></div>
+                                                </div>
+
+                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
+                                            </div>
+                                            <!--====== End - Card for mini cart ======-->
+
+                                            <!--====== End - Card for mini cart ======-->
+                                        </div>
+                                        <!--====== End - Mini Product Container ======-->
+
+
+                                        <!--====== Mini Product Statistics ======-->
+                                        <div class="mini-product-stat">
+                                            <div class="mini-total">
+
+                                                <span class="subtotal-text">SUBTOTAL</span>
+
+                                                <span class="subtotal-value">$42</span></div>
+                                            <div class="mini-action">
+
+                                                <a class="mini-link btn--e-brand-b-2" href="/checkout">PROCEED
+                                                    TO CHECKOUT</a>
+
+                                                <a class="mini-link btn--e-transparent-secondary-b-2"
+                                                   href="/cart">VIEW CART</a></div>
+                                        </div>
+                                        <!--====== End - Mini Product Statistics ======-->
+                                    </div>
+                                    <!--====== End - Dropdown ======-->
+                                </li>
+                                <li class="has-dropdown" data-tooltip="tooltip" data-placement="left"
+                                    title="Account">
+
+                                    <a><i class="far fa-user-circle"></i></a>
+
+                                    <!--====== Dropdown ======-->
+
+                                    <span class="js-menu-toggle"></span>
+                                    <ul style="width:120px">
+                                        <li>
+
+                                            <a href="/account"><i class="fas fa-user-circle u-s-m-r-6"></i>
+
+                                                <span>Account</span></a></li>
+                                        <li>
+
+                                            <a href="/sign-up"><i class="fas fa-user-plus u-s-m-r-6"></i>
+
+                                                <span>Sign-up</span></a></li>
+                                        <li>
+
+                                            <a href="/sign-in"><i class="fas fa-lock u-s-m-r-6"></i>
+
+                                                <span>Sign-in</span></a></li>
+                                        <li>
+
+                                            <a href="/sign-out"><i class="fas fa-lock-open u-s-m-r-6"></i>
+
+                                                <span>Sign-out</span></a></li>
+                                    </ul>
+                                    <!--====== End - Dropdown ======-->
+                                </li>
+                            </ul>
+                            <!--====== End - List ======-->
+                        </div>
+                        <!--====== End - Menu ======-->
+                    </div>
+                    <!--====== End - Dropdown Main plugin ======-->
+                </div>
+                <!--====== End - Primary Nav ======-->
+            </div>
+        </nav>
+        <!--====== End - Nav 1 ======-->
+
+
+        <!--====== Nav 2 ======-->
+        <nav class="secondary-nav-wrapper">
+            <div class="container">
+
+                <!--====== Secondary Nav ======-->
+                <div class="secondary-nav">
+
+                    <!--====== Dropdown Main plugin ======-->
+                    <div class="menu-init" id="navigation2">
+
+                        <button class="btn btn--icon toggle-button toggle-button--white fas fa-cog"
+                                type="button"></button>
+
+                        <!--====== Menu ======-->
+                        <div class="ah-lg-mode">
+
+                            <span class="ah-close">✕ Close</span>
+
+                            <!--====== List ======-->
+                            <ul th:class="'ah-list ah-list--design2 ' + ${page != null && page.equals('home') ? 'ah-list--link-color-white' : 'ah-list--link-color-primary' }">
+                                <li>
+                                    <a href="/">Home</a>
+                                </li>
+                                <li class="has-dropdown">
+
+                                    <a href="/products">Products<i class="fas fa-angle-down u-s-m-l-6"></i></a>
+
+                                    <!--====== Dropdown ======-->
+
+                                    <span class="js-menu-toggle"></span>
+                                    <ul style="width:170px">
+                                        <li th:each="item : ${rootCategories}" class="">
+                                            <a th:href="'/products?categoryId=' + ${item.id}" th:text="${item.name}"></a>
+                                        </li>
+                                    </ul>
+                                    <!--====== End - Dropdown ======-->
+                                </li>
+                                <li class="has-dropdown">
+
+                                    <a href="/contact">Contact</a>
+                                </li>
+                            </ul>
+                            <!--====== End - List ======-->
+                        </div>
+                        <!--====== End - Menu ======-->
+                    </div>
+                    <!--====== End - Dropdown Main plugin ======-->
+
+                </div>
+                <!--====== End - Secondary Nav ======-->
+            </div>
+        </nav>
+        <!--====== End - Nav 2 ======-->
+    </header>
+    <!--====== End - Main Header ======-->
+</div>
+<!--====== End - Header Wrapper ======-->
